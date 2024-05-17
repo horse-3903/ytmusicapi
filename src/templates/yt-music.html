@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Music Playlist</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/yt-music-styles.css')}}">
+</head>
+
+<body>
+    <div class="details">
+        <h1>YouTube Music Playlist</h1>
+        <input type="text" id="youtube-link" placeholder="Enter YouTube link">
+        <button id="submit-btn">Submit</button>
+    </div>
+    <div id="playlist-container">
+
+        
+        <div class="track-block">
+            <img class="track-image" src="https://i.ytimg.com/vi/OPf0YbXqDm0/sddefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCghqEJQEGHgg6AJIWg&rs=AMzJL3le1hLAWdIYaeHVQpyP46PrRsonZQ">
+
+            <div class="track-details">
+                <div class="track-title">
+                    Uptown Funk (Official Video) (feat. Bruno Mars)
+                </div>
+                <div class="track-artist">
+                    Mark Ronson
+                </div>
+                
+                <a class="track-link" href="https://www.youtube.com/watch?v=OPf0YbXqDm0" target=”_blank”>https://www.youtube.com/watch?v=OPf0YbXqDm0</a>
+                
+                <div class="track-duration">
+                    4:31
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="{{url_for('static', filename='scripts/yt-music-script.js')}}"></script>
+</body>
+
+</html>
