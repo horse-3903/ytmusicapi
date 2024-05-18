@@ -7,18 +7,19 @@
     <link rel="stylesheet" href="{{url_for('static', filename='styles/playlist-search.css')}}">
 </head>
 <body>
+    <div class="mode-toggle">
+        <label class="switch">
+            <input type="checkbox" id="mode" onclick="toggleMode()">
+            <span class="slider round"></span>
+        </label>
+        <label for="mode">Dark Mode</label>
+    </div>
     <div class="container">
-        <div class="mode-toggle">
-            <label class="switch">
-                <input type="checkbox" id="mode" onclick="toggleMode()">
-                <span class="slider round"></span>
-            </label>
-            <label for="mode">Dark Mode</label>
-        </div>
         <header>
             <h1>YTMusicAPI Playlist Search</h1>
             <input type="text" id="playlist-link" placeholder="Enter YouTube Music Playlist Link">
             <button onclick="searchPlaylist()">Search</button>
+            <button onclick="clearResults()">Clear Results</button>
         </header>
         <div id="tracks-container">
             <!-- Tracks will be displayed here -->

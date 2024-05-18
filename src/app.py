@@ -3,7 +3,7 @@ from flask import render_template, jsonify
 from flask import request
 from flask import abort
 
-from test import *
+from ytmusicapi import YTMusic
 
 app = Flask(__name__)
 
