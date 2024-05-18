@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YTMusicAPI Playlist Search</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/playlist-search.css')}}">
+</head>
+<body>
+    <div class="container">
+        <div class="mode-toggle">
+            <label class="switch">
+                <input type="checkbox" id="mode" onclick="toggleMode()">
+                <span class="slider round"></span>
+            </label>
+            <label for="mode">Dark Mode</label>
+        </div>
+        <header>
+            <h1>YTMusicAPI Playlist Search</h1>
+            <input type="text" id="playlist-link" placeholder="Enter YouTube Music Playlist Link">
+            <button onclick="searchPlaylist()">Search</button>
+        </header>
+        <div id="tracks-container">
+            <!-- Tracks will be displayed here -->
+        </div>
+    </div>
+
+    <script src="{{url_for('static', filename='scripts/playlist-search.js')}}"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@ from flask import render_template, jsonify
 from flask import request
 from flask import abort
 
-from util import *
+from test import *
 
 app = Flask(__name__)
 
@@ -11,9 +11,9 @@ app = Flask(__name__)
 def home():
     return render_template("home.html")
 
-@app.route("/yt-music")
-def yt_music():
-    return render_template("yt-music.html")
+@app.route("/sites/playlist-search")
+def playlist_search():
+    return render_template("playlist-search.html")
 
 @app.route("/api-route", methods=["GET", "POST"])
 def api_route():
@@ -23,7 +23,7 @@ def api_route():
         return jsonify(request.args)
 
 @app.route("/api-route/search-song", methods=["GET"])
-def search_song():
+def search_song_api():
     id = request.args["video-id"]
 
     ytmusicapi = YTMusic()
@@ -32,7 +32,7 @@ def search_song():
     return jsonify(res)
 
 @app.route("/api-route/search-playlist", methods=["GET"])
-def search_playlist():
+def search_playlist_api():
     id = request.args["playlist-id"]
 
     ytmusicapi = YTMusic()
@@ -41,7 +41,7 @@ def search_playlist():
     return jsonify(res)
 
 @app.route("/api-route/search-query", methods=["GET"])
-def search_query():
+def search_query_api():
     query = request.args["query"]
     limit = request.args["num"]
     item_type = request.args["type"]
