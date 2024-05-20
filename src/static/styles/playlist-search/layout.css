@@ -1,0 +1,50 @@
+.container {
+    width: 80%;
+    max-width: 750px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    position: relative;
+    overflow: auto;
+    margin: 20px;
+}
+
+header {
+    padding: 20px;
+    background-color: #ff5555;
+    color: #fff;
+    text-align: center;
+    position: relative;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.header-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.filter-container {
+    position: relative;
+}
+
+#tracks-container {
+    padding: 20px;
+}
+
+.mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
