@@ -8,8 +8,8 @@ function toggleMode() {
     }
 }
 
-window.onload = (ev) => {
-    const mode = document.getElementById("mode");
-    mode.checked = true;
-    toggleMode();
-}
+// window.onload = (ev) => {
+//     const mode = document.getElementById("mode");
+//     mode.checked = true;
+//     toggleMode();
+// }

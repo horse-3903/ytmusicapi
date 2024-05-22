@@ -53,7 +53,7 @@ def search_playlist_api():
         "MUSIC_VIDEO_TYPE_UGC": "videos",
         "MUSIC_VIDEO_TYPE_ATV": "songs",
     }
-
+    
     for id, tr in tqdm(enumerate(tracks)):
         title = tr["title"]
         artist = tr["artists"][0]["name"]
@@ -63,7 +63,7 @@ def search_playlist_api():
             tracks[id] = search
 
             res["tracks"] = tracks
-
+    
     return jsonify(res)
 
 @app.route("/api-route/search-query", methods=["GET"])
