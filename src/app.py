@@ -1,11 +1,22 @@
 from flask import Flask
 from flask import render_template, jsonify
-from flask import request
+from flask import request, Response
 from flask import abort
 
 from ytmusicapi import YTMusic
 
+import os
+import subprocess
+import pathlib
+
 from tqdm import tqdm
+
+import speedtest
+
+import eyed3
+import requests
+
+import json
 
 app = Flask(__name__)
 
@@ -17,12 +28,29 @@ def home():
 def playlist_search():
     return render_template("playlist-search.html")
 
+
+# api stuff
 @app.route("/api-route", methods=["GET", "POST"])
 def api_route():
     if request.method == 'POST':
         return jsonify(request.get_data())        
     else:
         return jsonify(request.args)
+    
+@app.route("/api-route/speed-test", methods=["GET"])
+def speed_test():
+    try:
+        st = speedtest.Speedtest(secure=True)
+        download_speed = st.download() / 1000000  # Convert to Mbps
+        upload_speed = st.upload() / 1000000  # Convert to Mbps
+
+        return jsonify({
+            "download": download_speed,
+            "upload": upload_speed,
+        })
+    except speedtest.SpeedtestException as e:
+        print(e)
+        abort(500, e)
 
 @app.route("/api-route/search-song", methods=["GET"])
 def search_song_api():
@@ -83,6 +111,64 @@ def search_query_api():
     res = ytmusicapi.search(query=query, limit=limit, filter=item_type)
 
     return jsonify(res)
+
+@app.route("/api-route/download-playlist", methods=["POST"])
+def download_playlist():
+    form = request.get_json(force=True)
+    playlist_id = form["playlist-id"]
+
+    dir = f"./downloads/playlists/{playlist_id}/"
+
+    if os.path.exists(dir):
+        return Response(status=200)
+    
+    p = subprocess.Popen(["youtube-dl", "--extract-audio", "--ignore-errors", "--audio-format", "mp3", "-o", f'downloads/playlists/{playlist_id}/%(playlist_index)s.%(ext)s', playlist_id])
+    p.communicate()
+
+    # print(["youtube-dl", "--extract-audio", "--ignore-errors", "--audio-format", "mp3", "-o", f'downloads/playlists/{playlist_id}/%(playlist_index)s.%(ext)s', playlist_id])
+
+    return Response(status=200)
+
+@app.route("/api-route/set-playlist", methods=["POST"])
+def set_playlist():
+    form = request.get_json(force=True)
+    playlist_id = form["playlist-id"]
+    data = form["data"]
+
+    dir = f"./downloads/playlists/{playlist_id}/"
+
+    if not os.path.exists(dir):
+        abort(400)
+    
+    listdir = sorted(pathlib.Path(dir).iterdir(), key=os.path.getmtime)
+
+    for idx, track in tqdm(enumerate(listdir)):
+        file_path = str(track).replace("\\\\", "/")
+        
+        info = data[idx]
+        # info = json.loads(info)
+
+        audiofile = eyed3.load(file_path)
+
+        audiofile.initTag(version=(2,3,0))
+
+        audiofile.tag.title = info["title"]
+        audiofile.tag.artist = info["artist"]
+        audiofile.tag.album = info["album"]
+
+        url = info["thumbnail"]
+        url = url.split("=")
+        url[-1] = "w512-h512-l90-rj"
+        url = "=".join(url)
+
+        response = requests.get(url)
+        audiofile.tag.images.set(3, response.content, "image/jpeg")
+        
+        audiofile.tag.save()
+
+        os.rename(file_path, f'./downloads/playlists/{playlist_id}/{info["title"]+".mp3"}')
+
+    return Response(status=200)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)

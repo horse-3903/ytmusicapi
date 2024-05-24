@@ -26,6 +26,7 @@
             </div>
             <div class="header-buttons">
                 <button onclick="alert(1337)">Save Results</button>
+                <button onclick="downloadPlaylist()">Download Playlist</button>
                 <button onclick="clearResults()">Clear Results</button>
                 <div class="filter-container">
                     <button onclick="toggleDropdown()">Filter ⫧</button>
@@ -41,6 +42,11 @@
                     </div>
                 </div>
             </div>
+
+            <div class="progress-wrapper">
+                <progress id="progress-bar" value="50" max="100"></progress>
+            </div>
+
             <div id="error-message" class="error-message"></div>
         </header>
         <div id="tracks-container">

@@ -28,6 +28,8 @@ header {
     background-color: #ff5555;
     color: #fff;
     text-align: center;
+    align-items: center;
+    justify-content: center;
     position: relative;
 }
 
@@ -217,17 +219,16 @@ input:checked + .slider:before {
     padding: 15px;
     margin: 15px;
     background-color: #f9f9f9;
-    border-top: 1px solid #ddd;
+    border: 1px solid #ddd;
 }
 
 .track-details p {
-    margin: 5px 0;
+    margin: 5px;
 }
 
 .track-details-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
 }
 
 .track-details-table td {
@@ -319,6 +320,44 @@ input:checked + .slider:before {
     100% { transform: rotate(360deg); }
 }
 
+.progress-wrapper {
+    width: calc(100% - 30px); /* Adjusted width considering padding and margin */
+    height: 20px; /* Adjusted height considering padding */
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    display: none; /* Changed to flex to center content */
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+progress {
+    width: 100%;
+    height: 100%;
+    appearance: none; /* Standard syntax */
+    -webkit-appearance: none; /* Vendor prefix for Webkit browsers like Chrome and Safari */
+    background-color: transparent;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 0; /* Reset margin */
+    padding: 0; /* Reset padding */
+}
+
+progress::-webkit-progress-bar {
+    background-color: transparent;
+}
+
+progress::-webkit-progress-value {
+    background-color: #ff9999; /* Adjust as needed */
+    border-radius: 10px;
+}
+
+progress::-moz-progress-bar {
+    background-color: #ff5555; /* Fallback for Mozilla Firefox */
+    border-radius: 10px;
+}
+
 /* dark mode */
 body.dark-mode {
     background-color: #1e1e1e;
@@ -356,7 +395,6 @@ body.dark-mode .track {
 
 body.dark-mode .track-details {
     background-color: #3a3a3a;
-    border-top: 1px solid #555;
 }
 
 body.dark-mode .track-details-table td {
@@ -375,7 +413,7 @@ body.dark-mode .track-summary input[type="text"], body.dark-mode .track-details-
 }
 
 body.dark-mode #filter-dropdown {
-    background-color: #505050;
+    background-color: #383838;
     color: #fff;
     border-color: #414141;
 }
@@ -402,4 +440,25 @@ body.dark-mode .track-buttons button:hover {
 
 body.dark-mode .loader {
     border: 20px solid #7e7e7e;
+    border-top: 20px solid #414141;
+}
+
+body.dark-mode .progress-wrapper {
+    background-color: #6d6d6d;
+}
+
+body.dark-mode progress {
+    background-color: #6d6d6d;
+}
+
+body.dark-mode progress::-webkit-progress-bar {
+    background-color: #838383;
+}
+
+body.dark-mode progress::-webkit-progress-value {
+    background-color: #363636;
+}
+
+body.dark-mode progress::-moz-progress-bar {
+    background-color: #363636;
 }
